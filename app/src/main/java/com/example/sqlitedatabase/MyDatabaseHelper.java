@@ -27,7 +27,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENTATION, " +
+                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         COLUMN_TITLE + " TEXT, " +
                         COLUMN_AUTHOR + " TEXT, " +
                         COLUMN_PAGES + " INTEGER);";
@@ -40,5 +40,10 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+    void addBook(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        
     }
 }
