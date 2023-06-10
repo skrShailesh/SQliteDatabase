@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import java.security.Key;
+
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     private Context context;
@@ -28,15 +30,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE " + TABLE_NAME + " (" +
-                        COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        COLUMN_TITLE + " TEXT, " +
-                        COLUMN_AUTHOR + " TEXT, " +
-                        COLUMN_PAGES + " INTEGER);";
-        db.execSQL(query);
+
+        db.execSQL(" CREATE TABLE " + TABLE_NAME +
+                "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_TITLE + "TEXT," + COLUMN_AUTHOR + "TEXT," + COLUMN_PAGES + "TEXT," + ")");
 
 
     }
+
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -44,7 +45,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addBook(String title,String author, String pages){
+    void addBook(String title, String author, Integer pages){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
@@ -55,7 +56,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
         if (result == -1){
             Toast.makeText(context, "Failed", Toast.LENGTH_SHORT).show();
         }else {
-            Toast.makeText(context, "Added Sucessfull", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Added Successful", Toast.LENGTH_SHORT).show();
         }
 
 
