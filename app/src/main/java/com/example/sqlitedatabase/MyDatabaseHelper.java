@@ -2,6 +2,7 @@ package com.example.sqlitedatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -16,11 +17,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "Book Library.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_NAME = "my library";
+    private static final String TABLE_NAME = "my_library";
     private static final String COLUMN_ID = "id";
-    private static final String COLUMN_TITLE = "book title";
-    private static final String COLUMN_AUTHOR = "book author";
-    private static final String COLUMN_PAGES = "book pages";
+    private static final String COLUMN_TITLE = "book_title";
+    private static final String COLUMN_AUTHOR = "book_author";
+    private static final String COLUMN_PAGES = "book_pages";
 
 
     public MyDatabaseHelper(@Nullable Context context) {
@@ -31,8 +32,11 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE " + TABLE_NAME +
-                "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_TITLE + "TEXT," + COLUMN_AUTHOR + "TEXT" + " )");
+
+        db.execSQL("CREATE TABLE my_library(id INTEGER PRIMARY KEY AUTOINCREMENT,book_title TEXT,book_author TEXT,book_pages INTEGER )");
+
+        /// db.execSQL("CREATE TABLE " + TABLE_NAME +
+        // "(" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_TITLE + "TEXT," + COLUMN_AUTHOR + "TEXT" + " )");
         
 
     }
@@ -59,6 +63,17 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Added Successful", Toast.LENGTH_SHORT).show();
         }
 
-
     }
+
+    Cursor readAllData(){
+        String query = " SELECT * FROM " + TABLE_NAME;
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = null;
+        if (db != null){
+            db.rawQuery(query,null);
+        }
+        return cursor;
+    }
+
 }
